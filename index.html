@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section class="input-section">
+        <input type="text" id="ecuation" placeholder="Ecuation"/>
+        <input type="number" id="iterations-quantity" placeholder="Amount of iterations"/>
+        <input type="number" id="lower-limit" placeholder="Lower limit"/>
+        <input type="number" id="upper-limit" placeholder="Upper limit"/>
+        <input type="number" id="tolerated-error" placeholder="Tolerated error"/>
+        <button onclick="registerEcuation()">Test</button>
+    </section>
+    <section class="results">
+        <table>
+            <thead>
+                <td>It.</td>
+                <td>Limits</td>
+                <td>Middle</td>
+                <td>Operations</td>
+                <td>Error</td>
+            </thead>
+            <tbody id="table-results">
+                <!-- <tr>
+                    <td>asdasd</td>
+                    <td>asdasd</td>
+                    <td>asdasdasdsa</td>
+                    <td>Operations</td>
+                    <td>Error</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
