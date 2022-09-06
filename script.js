@@ -27,7 +27,7 @@ function registerEcuation(){
     operations=['+'];
     coefficients=[0];
     exponents=[0];
-    
+   
     for(let i=0; i<ecuation.length; i++){
         if(ecuation[i]=='x'){
             exponents[it]=1;
@@ -93,7 +93,8 @@ function evaluateEcuation(variable){
     // console.log("f("+variable+") = "+collector);
 }
 function calculateError(lower, upper){
-    var result=(upper-lower)/(upper+lower)*100;
+    var result=((upper-lower)/(upper+lower))*100;
+    //console.log("SUB::", (upper-lower), ", ADD:",(upper+lower),", RESULT:",result);
     if(result<0){
         result*=-1;
     }
@@ -116,7 +117,7 @@ function bisectionMethod(){
     var middleResult=0;
     var decisionFactor=0;
     var aproximatedError=0;
-    
+   
     var newRow=undefined;
     var newCeld=undefined;
 
@@ -130,7 +131,7 @@ function bisectionMethod(){
         middleResult=evaluateEcuation(middleValue);
         //console.log("MIDDLE f("+middleValue+") = "+middleResult);
         decisionFactor=lowerResult*middleResult;
-        
+       
         aproximatedError=calculateError(lowerLimit, upperLimit);
         //console.log("ERROR  = "+aproximatedError);
 
@@ -149,7 +150,7 @@ function bisectionMethod(){
         newCeld.innerHTML=`x<sub>r</sub>=${middleValue}<br>`;
         newRow.appendChild(newCeld);
 
-        
+       
         newCeld=document.createElement("td");
         newCeld.innerHTML=`f<sub>(${lowerLimit})</sub>=${lowerResult}<br>
                         f<sub>(${middleValue})</sub>=${middleResult}<br>
@@ -185,6 +186,11 @@ function getInputs(){
         // console.log("ERROR")
         throw Error('ERROR: please enter all the fields.');
     }
+   
+    iterationsQuantity=Number(iterationsQuantity);
+    toleratedError=Number(toleratedError);
+    lowerLimit=Number(lowerLimit);
+    upperLimit=Number(upperLimit);
 }
 
 
