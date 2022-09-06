@@ -13,9 +13,9 @@ var toleratedError=0.0;
 var lowerLimit=0.0;
 var upperLimit=1.0;
 
-/*TEST CASE:
--2+7x-5x^2+6^3  5   0   1   0.1
-*/
+
+var table, tableHeader, tableResults;
+
 
 function registerEcuation(){
     try{
@@ -92,6 +92,43 @@ function evaluateEcuation(variable){
     return collector;
     // console.log("f("+variable+") = "+collector);
 }
+function renderIterationResults(iteration, lowerLimit, upperLimit, middleValue, lowerResult, middleResult, decisionFactor, aproximatedError){
+    var newRow=undefined;
+    var newCeld=undefined;
+    
+    newRow=document.createElement("tr");
+    // if(iteration%2==0){
+    //     newRow.setAttribute("class", "table-light");
+    // }
+
+    newCeld=document.createElement("th");
+    newCeld.setAttribute("scope", "row");
+    newCeld.innerHTML=iteration;
+    newRow.appendChild(newCeld);
+
+    newCeld=document.createElement("td");
+    newCeld.innerHTML=`x<sub>l</sub>=${lowerLimit}<br>
+                    x<sub>u</sub>=${upperLimit}`;
+    newRow.appendChild(newCeld);
+
+    newCeld=document.createElement("td");
+    newCeld.innerHTML=`x<sub>r</sub>=${middleValue}<br>`;
+    newRow.appendChild(newCeld);
+
+    
+    newCeld=document.createElement("td");
+    newCeld.innerHTML=`f<sub>(${lowerLimit})</sub>=${lowerResult}<br>
+                    f<sub>(${middleValue})</sub>=${middleResult}<br>
+                    f<sub>(${lowerLimit})</sub>f<sub>(${middleValue})</sub>=${decisionFactor}`;
+    newRow.appendChild(newCeld);
+
+    newCeld=document.createElement("td");
+    newCeld.innerHTML=aproximatedError+'%';
+    newRow.appendChild(newCeld);
+
+    tableResults.appendChild(newRow);
+
+}
 function calculateError(lower, upper){
     var result=(upper-lower)/(upper+lower)*100;
     if(result<0){
@@ -102,65 +139,49 @@ function calculateError(lower, upper){
 function bisectionMethod(){
     // INPUTS VALIDATIONS
     if(upperLimit<=lowerLimit){
-        throw Error('ERROR: lower limit is higher than the upper limit.');
+        let error=new Error('ERROR: lower limit is higher than the upper limit.');
+        renderError(error);
+        throw error;
     }
     if(toleratedError<0.0000001){
-        throw Error("ERROR: the tolerated error can't be smaller than 10^-7.");
+        let error=new Error("ERROR: the tolerated error can't be smaller than 10^-7.");
+        renderError(error);
+        throw error;
     }
     if(iterationsQuantity<0||iterationsQuantity>10**7){
-        throw Error("ERROR: the iterations quantity can't be greater than 10^7.");
+        let error=new Error("ERROR: the iterations quantity can't be greater than 10^7.");
+        renderError(error);
+        throw error;
     }
+
+    cleanError();
+    
+    table.classList.add('displayed');
 
     var middleValue=0;
     var lowerResult=0;
     var middleResult=0;
     var decisionFactor=0;
     var aproximatedError=0;
-    
-    var newRow=undefined;
-    var newCeld=undefined;
 
-    var tableResults=document.getElementById('table-results');
-
-    for(let i=1; i<=iterationsQuantity; i++){
-
+    for(let iteration=1; iteration<=iterationsQuantity; iteration++){
         middleValue=(lowerLimit+upperLimit)/2;
+
         lowerResult=evaluateEcuation(lowerLimit);
-        //console.log("LOWER f("+lowerLimit+") = "+lowerResult);
         middleResult=evaluateEcuation(middleValue);
-        //console.log("MIDDLE f("+middleValue+") = "+middleResult);
         decisionFactor=lowerResult*middleResult;
-        
+
         aproximatedError=calculateError(lowerLimit, upperLimit);
+        
+        //console.log("LOWER f("+lowerLimit+") = "+lowerResult);
+        //console.log("MIDDLE f("+middleValue+") = "+middleResult);
         //console.log("ERROR  = "+aproximatedError);
 
-        newRow=document.createElement("tr");
-
-        newCeld=document.createElement("td");
-        newCeld.innerHTML=i;
-        newRow.appendChild(newCeld);
-
-        newCeld=document.createElement("td");
-        newCeld.innerHTML=`x<sub>l</sub>=${lowerLimit}<br>
-                        x<sub>u</sub>=${upperLimit}`;
-        newRow.appendChild(newCeld);
-
-        newCeld=document.createElement("td");
-        newCeld.innerHTML=`x<sub>r</sub>=${middleValue}<br>`;
-        newRow.appendChild(newCeld);
-
-        
-        newCeld=document.createElement("td");
-        newCeld.innerHTML=`f<sub>(${lowerLimit})</sub>=${lowerResult}<br>
-                        f<sub>(${middleValue})</sub>=${middleResult}<br>
-                        f<sub>(${lowerLimit})</sub>f<sub>(${middleValue})</sub>=${decisionFactor}`;
-        newRow.appendChild(newCeld);
-
-        newCeld=document.createElement("td");
-        newCeld.innerHTML=aproximatedError+'%';
-        newRow.appendChild(newCeld);
-
-        tableResults.appendChild(newRow);
+        renderIterationResults(
+            iteration, lowerLimit, upperLimit, middleValue,
+            lowerResult, middleResult, decisionFactor,
+            aproximatedError
+        );
 
         if(decisionFactor==0||aproximatedError<toleratedError){
             // THE ROOT IS FOUNDED OR THE ERROR IS TOLERATED
@@ -175,19 +196,78 @@ function bisectionMethod(){
 }
 
 function getInputs(){
+    tableResults=document.getElementById('table-results-js');
+    table=document.getElementById('table-js');
+    tableHeader=document.getElementById('table-header-js');
     ecuation=document.getElementById('ecuation').value;
     iterationsQuantity = document.getElementById('iterations-quantity').value;
     toleratedError = document.getElementById('tolerated-error').value;
     lowerLimit = document.getElementById('lower-limit').value;
     upperLimit = document.getElementById('upper-limit').value;
 
-    if(!ecuation||!iterationsQuantity||!toleratedError||!lowerLimit||!upperLimit){
+    table.classList.remove('displayed');
+
+
+    if(!ecuation||!iterationsQuantity||!toleratedError||!lowerLimit||!upperLimit||tableResults===undefined||table===undefined||tableHeader===undefined){
+        setTimeout(()=>{
+            tableResults.innerHTML=null;
+        },1000)
         // console.log("ERROR")
-        throw Error('ERROR: please enter all the fields.');
+        let error=new Error('ERROR: please enter all the fields.');
+        renderError(error);
+        throw error;
     }
+    
+}
+var errorCounter
+function renderError(error){
+    // const toast = document.getElementById(`error-${errorCounter++}`)
+    
+    const errorContainer=document.getElementById('error-js');
+
+    const newError=document.createElement('div');
+    newError.classList.add("toast");
+    newError.classList.add("text-bg-danger");
+    newError.id=`error-${errorCounter++}`;
+    newError.setAttribute('role', 'alert')
+    newError.setAttribute('aria-live', '')
+    newError.setAttribute('aria-atomic', 'true')
+    newError.setAttribute('data-bs-delay', '10000')
+    newError.innerHTML=`
+        <div class="toast-header">
+            <img src="./img/error.png" class="error-icon rounded me-2" alt="Error icon" >
+            <strong class="me-auto">A problem founded was founded :( </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            ${error.message}
+        </div>
+    `;
+    console.log(newError);
+    const toast = new bootstrap.Toast(newError)
+    errorContainer.appendChild(newError);
+    toast.show()
+
+    // errorContainer.classList.add('error-display');
+    // errorContainer.innerHTML=error.message;
+}
+function cleanError(){
+    // const errorContainer=document.getElementById('error-js');
+    // errorContainer.innerHTML=null;
+    // errorContainer.classList.remove('error-display');
 }
 
+function chargeToast(){
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
+    if (toastTrigger) {
+        toastTrigger.addEventListener('click', () => {
+            const toast = new bootstrap.Toast(toastLiveExample)
 
+            toast.show()
+        })
+    }
+}
 
 
 
@@ -200,3 +280,7 @@ function testFunctions(){
     evaluateEcuation(0.3125);
     evaluateEcuation(0.28125);
 }
+
+/*TEST CASE:
+-2+7x-5x^2+6^3  5   0   1   10
+*/

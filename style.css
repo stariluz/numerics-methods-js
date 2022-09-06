@@ -1,0 +1,91 @@
+* {
+    font-family: 'Bitter', serif;
+    /* font-family: 'Combo', cursive; */
+    /* font-family: 'Rubik', sans-serif; */
+    box-sizing: border-box;
+}
+html, body{
+    margin: 0;
+    padding: 0;
+}
+.input-section{
+    background-color: rgb(105, 138, 136);
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.input-section input{
+    max-width: 100%;
+    min-width: 150px;
+    min-height: 1.5rem;
+    padding: 0.5rem;
+    margin: 1rem;
+    border-radius: 5px;
+    border: 0;
+}
+input.ecuation{
+    min-width: 50%;
+}
+.input-section button{
+    min-width: 50%;
+
+    max-width: 100%;
+    box-shadow: inset -1px -2px 2px 0px rgba(255, 255, 255, 0.2),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.3),
+    0px 0px 2px 2px rgba(91, 91, 91, 0.2);
+}
+.transition{
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all ease 1s;
+}
+
+.results{
+    position: relative;
+}
+.error{
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    /* opacity: 0;
+    transform: scale(0.95);
+    transition: all cubic-bezier(1, 0, 0, 1) 0.5s; */
+    border-radius: 10px;
+    /* height: 0rem; */
+    height: 2rem;
+    border: 2px solid red;
+    color: red;
+    font-weight: 700;
+    background-color: rgb(255, 230, 230);
+}
+.error-display{
+    height: 2rem;
+    opacity: 1;
+    transform: scale(1);
+}
+.displayed{
+    opacity: 1;
+    transform: scale(1);
+}
+.error-icon{
+    height: 2rem;
+    width: 2rem;
+}
+
+.results{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* table{
+
+}
+td{
+    margin: 1rem;
+} */
+td{
+    line-height: 2rem!important;
+}
