@@ -27,7 +27,7 @@ function registerEcuation(){
     operations=['+'];
     coefficients=[0];
     exponents=[0];
-    
+   
     for(let i=0; i<ecuation.length; i++){
         if(ecuation[i]=='x'){
             exponents[it]=1;
@@ -130,7 +130,8 @@ function renderIterationResults(iteration, lowerLimit, upperLimit, middleValue, 
 
 }
 function calculateError(lower, upper){
-    var result=(upper-lower)/(upper+lower)*100;
+    var result=((upper-lower)/(upper+lower))*100;
+    //console.log("SUB::", (upper-lower), ", ADD:",(upper+lower),", RESULT:",result);
     if(result<0){
         result*=-1;
     }
@@ -218,6 +219,11 @@ function getInputs(){
         throw error;
     }
     
+   
+    iterationsQuantity=Number(iterationsQuantity);
+    toleratedError=Number(toleratedError);
+    lowerLimit=Number(lowerLimit);
+    upperLimit=Number(upperLimit);
 }
 var errorCounter
 function renderError(error){
