@@ -16,15 +16,48 @@
 <body>
     <header>
         <h5>This is a program of Adrian González &#128152 for the Numerics Methods Subject. Last modification: Sep/07/2022</h5>
+        <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            More methods
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="./secant-method.html">Secant method</a></li>
+        </ul>
+      </div>
     </header>
     <section class="input-section">
         <h1>BISECTION METHOD PROGRAM</h1>
-        <input type="text" class="ecuation" id="ecuation" placeholder="Ecuation" value="-2+7x-5x^2+6x^3"/>
-        <input type="number" class="" id="iterations-quantity" placeholder="Amount of iterations"/>
-        <input type="number" class="" id="lower-limit" placeholder="Lower limit"/>
-        <input type="number" class="" id="upper-limit" placeholder="Upper limit"/>
-        <input type="number" class="" id="tolerated-error" placeholder="Tolerated error"/>
-        <button class="btn btn-primary" onclick="registerEcuation()">Get the the aproximation for the ecuation</button>
+        <div class="input-group mb-3">
+            <div class="form-floating">
+            <input type="text" class="form-control ecuation" id="ecuation" placeholder="Ecuation" value="-2+7x-5x^2+6x^3"/>
+                <label for="ecuation">Ecuation</label>
+            </div>
+            <div class="form-floating">
+            <input type="number" class="form-control" id="tolerated-error" placeholder="Tolerated error" value="10"/>
+                <label for="tolerated-error">Tolerated error</label>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="form-floating">
+                <input type="number" class="form-control" id="iterations-quantity" placeholder="Amount of iterations" value="5"/>
+                <label for="iterations-quantity">
+                    Amount of iterations
+                </label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="lower-limit" placeholder="Lower limit" value="0"/>
+                <label for="lower-limit">
+                    Lower limit
+                </label>
+            </div>
+            <div class="form-floating">
+                <input type="number" class="form-control" id="upper-limit" placeholder="Upper limit" value="1"/>
+                <label for="upper-limit">
+                    Upper limit
+                </label>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="startCalculations()">Get the the aproximation for the ecuation</button>
     </section>
     <section class="results">
         <div class="toast-container position-absolute top-0 end-0 p-3" id="error-js">
@@ -54,7 +87,6 @@
 
     <script src="general.js"></script>
     <script src="bisection-method.js"></script>
-    <script src="secant-method.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>

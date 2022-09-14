@@ -10,17 +10,22 @@ var it = 0;
 // Limits
 var iterationsQuantity = 0;
 var toleratedError = 0.0;
-var lowerLimit = 0.0;
-var upperLimit = 1.0;
 
 var table, tableHeader, tableResults;
 
 function registerEcuation() {
+  ecuation = document.getElementById('ecuation').value;
   try {
-    getInputs();
+    if (!ecuation) {
+      let error = new Error('ERROR: please enter all the fields.');
+      renderOperationError(error);
+      throw error;
+    }
   } catch (error) {
     return;
   }
+
+  // RESTART FIRST DATA
   it = 0;
   operations = ['+'];
   coefficients = [0];
@@ -39,10 +44,21 @@ function registerEcuation() {
       }
       // console.log("EXPONENT "+it+":", exponents[it]);
       i--;
+    } else if (ecuation[i] == '.') {
+      i++;
+      let decimalCoefficient = 0;
+      let counter = 1;
+      while (!isNaN(ecuation[i])) {
+        decimalCoefficient = Number(ecuation[i]) * 10 ** -counter;
+        coefficients[it] = coefficients[it] + decimalCoefficient;
+        i++;
+        counter++;
+      }
+      i--;
     } else if (isNaN(ecuation[i])) {
       it++;
       operations[it] = ecuation[i];
-      // console.log("OPERATION "+it+":", operations[it]);
+      // console.log('NAN: ' + ecuation[i]);
     } else {
       coefficients[it] = 0;
       exponents[it] = 0;
@@ -55,11 +71,21 @@ function registerEcuation() {
       i--;
     }
   }
-  bisectionMethod();
+
   // TEST OF CORRECT BUCKET OF OPERATIONS
-  // for(let i=0; i<=it; i++){
-  //     console.log('   '+operations[i]+' '+ coefficients[i]+'^'+ exponents[i]);
+  // for (let i = 0; i <= it; i++) {
+  //   console.log(
+  //     '   ' + operations[i] + ' ' + coefficients[i] + 'x^' + exponents[i]
+  //   );
   // }
+
+  /* try {
+    callback();
+  } catch (error) {
+    throw error;
+    console.log(error);
+    renderOperationError(error);
+  } */
   // testFunctions();
 }
 
@@ -93,45 +119,8 @@ function evaluateEcuation(variable) {
   // console.log("f("+variable+") = "+collector);
 }
 
-function getInputs() {
-  tableResults = document.getElementById('table-results-js');
-  table = document.getElementById('table-js');
-  tableHeader = document.getElementById('table-header-js');
-  ecuation = document.getElementById('ecuation').value;
-  iterationsQuantity = document.getElementById('iterations-quantity').value;
-  toleratedError = document.getElementById('tolerated-error').value;
-  lowerLimit = document.getElementById('lower-limit').value;
-  upperLimit = document.getElementById('upper-limit').value;
-
-  table.classList.remove('displayed');
-
-  if (
-    !ecuation ||
-    !iterationsQuantity ||
-    !toleratedError ||
-    !lowerLimit ||
-    !upperLimit ||
-    tableResults === undefined ||
-    table === undefined ||
-    tableHeader === undefined
-  ) {
-    setTimeout(() => {
-      tableResults.innerHTML = null;
-    }, 1000);
-    // console.log("ERROR")
-    let error = new Error('ERROR: please enter all the fields.');
-    renderError(error);
-    throw error;
-  }
-
-  iterationsQuantity = Number(iterationsQuantity);
-  toleratedError = Number(toleratedError);
-  lowerLimit = Number(lowerLimit);
-  upperLimit = Number(upperLimit);
-}
-
 function cleanResults() {
-  tableResults = document.getElementById('table-results-js');
+  // tableResults = document.getElementById('table-results-js');
   tableResults.innerHTML = null;
 }
 
@@ -148,7 +137,7 @@ function chargeToast() {
 }
 
 var errorCounter;
-function renderError(error) {
+function renderOperationError(error) {
   // const toast = document.getElementById(`error-${errorCounter++}`)
 
   const errorContainer = document.getElementById('error-js');
@@ -171,7 +160,7 @@ function renderError(error) {
             ${error.message}
         </div>
     `;
-  console.log(newError);
+  // console.log(newError);
   const toast = new bootstrap.Toast(newError);
   errorContainer.appendChild(newError);
   toast.show();
@@ -179,7 +168,8 @@ function renderError(error) {
   // errorContainer.classList.add('error-display');
   // errorContainer.innerHTML=error.message;
 }
-function cleanError() {
+
+function cleanOperationError() {
   const errorContainer = document.getElementById('error-js');
   errorContainer.innerHTML = null;
 }

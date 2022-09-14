@@ -1,3 +1,6 @@
+var lowerLimit = 0.0;
+var upperLimit = 1.0;
+
 function renderIterationResults(
   iteration,
   lowerLimit,
@@ -54,25 +57,22 @@ function bisectionMethod() {
   // INPUTS VALIDATIONS
   if (upperLimit <= lowerLimit) {
     let error = new Error('ERROR: lower limit is higher than the upper limit.');
-    renderError(error);
     throw error;
   }
   if (toleratedError < 0.0000001) {
     let error = new Error(
       "ERROR: the tolerated error can't be smaller than 10^-7."
     );
-    renderError(error);
     throw error;
   }
   if (iterationsQuantity < 0 || iterationsQuantity > 10 ** 7) {
     let error = new Error(
       "ERROR: the iterations quantity can't be greater than 10^7."
     );
-    renderError(error);
     throw error;
   }
 
-  cleanError();
+  cleanOperationError();
   cleanResults();
 
   table.classList.add('displayed');
@@ -119,15 +119,48 @@ function bisectionMethod() {
   // console.log("RESULT: ", middleResult);
 }
 
-function testFunctions() {
-  evaluateEcuation(0);
-  evaluateEcuation(0.5);
-  evaluateEcuation(0.25);
-  evaluateEcuation(0.375);
-  evaluateEcuation(0.3125);
-  evaluateEcuation(0.28125);
+function getInputs() {
+  tableResults = document.getElementById('table-results-js');
+  table = document.getElementById('table-js');
+  tableHeader = document.getElementById('table-header-js');
+  iterationsQuantity = document.getElementById('iterations-quantity').value;
+  toleratedError = document.getElementById('tolerated-error').value;
+  lowerLimit = document.getElementById('lower-limit').value;
+  upperLimit = document.getElementById('upper-limit').value;
+  console.log('getInputs');
+  if (
+    !iterationsQuantity ||
+    !toleratedError ||
+    !lowerLimit ||
+    !upperLimit ||
+    tableResults === undefined ||
+    table === undefined ||
+    tableHeader === undefined
+  ) {
+    // HIDE AND EMPTY THE TABLE
+    table.classList.remove('displayed');
+    setTimeout(() => {
+      tableResults.innerHTML = null;
+    }, 1000);
+
+    // SHOW AND TRHOW THE ERROR
+    let error = new Error('ERROR: please enter all the fields.');
+    renderOperationError(error);
+    throw error;
+  }
+
+  iterationsQuantity = Number(iterationsQuantity);
+  toleratedError = Number(toleratedError);
+  lowerLimit = Number(lowerLimit);
+  upperLimit = Number(upperLimit);
 }
 
 /*TEST CASE:
 -2+7x-5x^2+6^3  5   0   1   10
 */
+
+function startCalculations() {
+  registerEcuation();
+  getInputs();
+  bisectionMethod();
+}
