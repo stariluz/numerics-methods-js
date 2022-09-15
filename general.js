@@ -33,7 +33,7 @@ function registerEcuation() {
 
   for (let i = 0; i < ecuation.length; i++) {
     if (ecuation[i] == 'x') {
-      if (coefficients[algebraicTermsCounter] === 0 && ecuation[i] !== '0') {
+      if (coefficients[algebraicTermsCounter] == 0 && isNaN(ecuation[i - 1])) {
         coefficients[algebraicTermsCounter] = 1;
       }
       exponents[algebraicTermsCounter] = 1;
@@ -78,12 +78,22 @@ function registerEcuation() {
     }
   }
 
-  // // TEST OF CORRECT BUCKET OF OPERATIONS
-  // for (let i = 0; i <= algebraicTermsCounter; i++) {
-  //   console.log(
-  //     '   ' + operations[i] + ' ' + coefficients[i] + 'x^' + exponents[i]
-  //   );
-  // }
+  for (let i = 0; i <= algebraicTermsCounter; i++) {
+    if (coefficients[i] == 0) {
+      operations.splice(i, 1);
+      coefficients.splice(i, 1);
+      exponents.splice(i, 1);
+      i--;
+      algebraicTermsCounter--;
+    }
+  }
+
+  // TEST OF CORRECT BUCKET OF OPERATIONS
+  for (let i = 0; i <= algebraicTermsCounter; i++) {
+    console.log(
+      '   ' + operations[i] + ' ' + coefficients[i] + 'x^' + exponents[i]
+    );
+  }
 
   /* try {
     callback();

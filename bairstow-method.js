@@ -85,7 +85,7 @@ function bairstowMethod() {
         arrayBValues[i + 1] * independentVariableR +
         arrayBValues[i] * independentVariableS
     );
-    // console.log('b' + i + ': ', arrayBValues[i + 2]);
+    console.log('b' + i + ': ', arrayBValues[i + 2]);
   }
 
   var arrayCValues = [0, 0]; // The C sub n will start in the position 3 of the array
@@ -105,7 +105,7 @@ function bairstowMethod() {
         arrayCValues[i + 1] * independentVariableR +
         arrayCValues[i] * independentVariableS
     );
-    // console.log('c' + i + ': ', arrayCValues[i + 2]);
+    console.log('c' + i + ': ', arrayCValues[i + 2]);
   }
 
   // var arrayCValues=[];
