@@ -11,11 +11,23 @@ body {
 }
 header {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0.5rem;
+  height: fit-content;
+  background-color: rgb(27, 34, 98);
+  color: white;
+}
+header h5 {
+  text-align: center;
+  font-size: small !important;
 }
 .dropdown {
-  position: absolute !important;
-  top: 0;
-  right: 0;
+  height: min-content;
+}
+.dropdown .dropdown-toggle {
+  border-radius: 0px 0px 0px 1rem;
 }
 .input-section {
   background-color: rgb(105, 138, 136);
@@ -39,9 +51,6 @@ header {
   min-width: 50%;
 } */
 .input-section button {
-  min-width: 50%;
-
-  max-width: 100%;
   box-shadow: inset -1px -2px 2px 0px rgba(255, 255, 255, 0.2),
     0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 0px 2px 2px rgba(91, 91, 91, 0.2);
 }
@@ -50,10 +59,13 @@ header {
   transform: scale(0.95);
   transition: all ease 1s;
 }
-
-.results {
-  position: relative;
+.buttons-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
+
 .error {
   position: relative;
   width: 100%;
@@ -84,16 +96,11 @@ header {
 }
 
 .results {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  padding: 1rem;
+  max-width: 100%;
+  overflow: auto;
 }
-/* table{
-
-}
-td{
-    margin: 1rem;
-} */
 .table {
   border-radius: 8px;
   overflow: hidden;
@@ -106,16 +113,6 @@ td{
 }
 td {
   line-height: 2rem !important;
-}
-
-header {
-  background-color: rgb(27, 34, 98);
-  color: white;
-  height: 1rem;
-}
-header h5 {
-  text-align: center;
-  font-size: small !important;
 }
 h1 {
   color: white;

@@ -161,6 +161,11 @@ function getInputs() {
 
 function startCalculations() {
   registerEcuation();
-  getInputs();
+  try {
+    getInputs();
+  } catch (error) {
+    cleanResults();
+    return;
+  }
   bisectionMethod();
 }

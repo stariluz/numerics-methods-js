@@ -90,25 +90,22 @@ function renderIterationResults(
 
   // COLUMN 2
   newCeld = document.createElement('td');
-  newCeld.innerHTML = `x<sub>i-1</sub>=${previousValue}<br>
-                    x<sub>i</sub>=${currentValue}`;
+  newCeld.innerHTML = `x<sub>i-1</sub> = ${previousValue}<br>
+                    x<sub>i</sub> = ${currentValue}`;
   newRow.appendChild(newCeld);
 
   // COLUMN 3
   newCeld = document.createElement('td');
-  newCeld.innerHTML = `f<sub>(${previousValue})</sub>=${previousResult}<br>
-                    f<sub>(${currentValue})</sub>=${currentResult}<br>`;
+  newCeld.innerHTML = `f<sub>(${previousValue})</sub> = ${previousResult}<br>
+                    f<sub>(${currentValue})</sub> = ${currentResult}<br>`;
   newRow.appendChild(newCeld);
-
   // COLUMN 4
   newCeld = document.createElement('td');
-  newCeld.innerHTML = `x<sub>i+1</sub> = ${currentValue.toFixed(
-    4
-  )} - (${currentResult.toFixed(4)})(${previousValue.toFixed(
-    4
-  )}-${currentValue.toFixed(4)})/(${previousResult.toFixed(
-    4
-  )}-${currentResult.toFixed(4)}) = <b>${newValue.toFixed(4)}</b> <br>`;
+  newCeld.innerHTML = `x<sub>i+1</sub> = ${currentValue} - (${currentResult})(${previousValue} ${
+    currentValue < 0 ? '+ ' + currentValue * -1 : '- ' + currentValue
+  }) / (${previousResult} ${
+    currentResult < 0 ? '+ ' + currentResult * -1 : '- ' + currentResult
+  }) = <b>${newValue}</b> <br>`;
   newRow.appendChild(newCeld);
 
   newCeld = document.createElement('td');
@@ -173,8 +170,9 @@ function addRoot() {
   const rootsContainer = document.getElementById('roots-container-js');
 
   const newRoot = document.createElement('div');
-  newRoot.classList.add('input-group', 'mb-3');
+  newRoot.classList.add('col');
   newRoot.innerHTML = `
+  <div class="input-group mb-3">
     <div class="input-group-text">Root ${rootsCounter}</div>
     <div class="form-floating">
       <input type="number" class="form-control" id="iterations-quantity${rootsCounter}" placeholder="Amount of iterations"/>
@@ -187,13 +185,20 @@ function addRoot() {
     <div class="form-floating">
       <input type="number" class="form-control" id="current-value${rootsCounter}" placeholder="First current value"/>
       <label for="current-value${rootsCounter}">First current value</label>
-    </div>`;
+    </div>
+  </div>`;
   rootsContainer.appendChild(newRoot);
 }
 function createTable(counter) {
+  var newTable = document.getElementById(`table-js${counter}`);
+  if (newTable != undefined) {
+    //THE TABLE ALREADY EXISTS
+    return;
+  }
   const tablesContainer = document.getElementById('tables-container-js');
   // console.log(tablesContainer);
-  const newTable = document.createElement('table');
+
+  newTable = document.createElement('table');
   newTable.classList.add('table', 'table-striped', 'transition', 'mb-4');
   newTable.id = `table-js${counter}`;
   newTable.innerHTML = `
@@ -218,12 +223,22 @@ function createTable(counter) {
 
 function startCalculations() {
   registerEcuation();
-  getInputs(1);
+  try {
+    getInputs(1);
+  } catch (error) {
+    cleanResults();
+    return;
+  }
   secantMethod();
   for (let i = 2; i <= rootsCounter; i++) {
     console.log('I WILL ADD MORE ROOTS');
     createTable(i);
-    getInputs(i);
+    try {
+      getInputs(i);
+    } catch (error) {
+      cleanResults();
+      return;
+    }
     secantMethod();
   }
 }

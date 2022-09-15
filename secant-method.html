@@ -15,9 +15,9 @@
 </head>
 <body>
     <header>
-        <h5 class="mb-0">This is a program of Adrian González &#128152 for the Numerics Methods Subject. Last modification: Sep/13/2022</h5>
-        <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <h5 class="mb-0">This is a program of Adrian González &#128152 for the Numerics Methods Subject. Last modification: Sep/14/2022</h5>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             More methods
         </button>
         <ul class="dropdown-menu">
@@ -42,31 +42,37 @@
         </div>
 
         <!-- CUSTOM INPUTS -->
-        <div id="roots-container-js">
-          <div class="input-group mb-3">
-            <div class="input-group-text">Root 1</div>
-            <div class="form-floating">
-              <input type="number" class="form-control" id="iterations-quantity1" placeholder="Amount of iterations"
-                value="5"
-              />
-              <label for="iterations-quantity1">Amount of iterations</label>
-            </div>
-            <div class="form-floating">
-              <input type="number" class="form-control" id="previous-value1" placeholder="First previous value"
-                value="-0.5"
-              />
-              <label for="previous-value1">First previous value</label>
-            </div>
-            <div class="form-floating">
-              <input type="number" class="form-control" id="current-value1" placeholder="First current value"
-                value="0"
-              />
-              <label for="current-value1">First current value</label>
+        <div class="w-100">
+          <div class="row row-cols-2" id="roots-container-js">
+            <div class="col">
+              <div class="input-group mb-3">
+                <div class="input-group-text">Root 1</div>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="iterations-quantity1" placeholder="Amount of iterations"
+                    value="5"
+                  />
+                  <label for="iterations-quantity1">Amount of iterations</label>
+                </div>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="previous-value1" placeholder="First previous value"
+                    value="-0.5"
+                  />
+                  <label for="previous-value1">First previous value</label>
+                </div>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="current-value1" placeholder="First current value"
+                    value="0"
+                  />
+                  <label for="current-value1">First current value</label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <button class="btn btn-secondary m-4" onclick="addRoot()">+ Add a root to search</button>
-        <button class="btn btn-primary" onclick="startCalculations()">Get the the aproximation for the ecuation</button>
+        <div class="buttons-section">
+          <button class="btn btn-secondary" onclick="addRoot()">+ Add a root to search</button>
+          <button class="btn btn-primary" onclick="startCalculations()">Get the the aproximation for the ecuation</button>
+        </div>
     </section>
     <section class="results">
         <div class="toast-container position-absolute top-0 end-0 p-3" id="error-js">
