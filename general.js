@@ -5,7 +5,7 @@ var coefficients = [0];
 var exponents = [0];
 // var operationIt=0;
 // var coefficientIt=0;
-var it = 0;
+var algebraicTermsCounter = 0;
 
 // Limits
 var iterationsQuantity = 0;
@@ -26,23 +26,27 @@ function registerEcuation() {
   }
 
   // RESTART FIRST DATA
-  it = 0;
+  algebraicTermsCounter = 0;
   operations = ['+'];
   coefficients = [0];
   exponents = [0];
 
   for (let i = 0; i < ecuation.length; i++) {
     if (ecuation[i] == 'x') {
-      exponents[it] = 1;
+      if (coefficients[algebraicTermsCounter] === 0 && ecuation[i] !== '0') {
+        coefficients[algebraicTermsCounter] = 1;
+      }
+      exponents[algebraicTermsCounter] = 1;
     } else if (ecuation[i] == '^') {
       i++;
-      exponents[it] = 0;
+      exponents[algebraicTermsCounter] = 0;
       while (!isNaN(ecuation[i])) {
-        exponents[it] = exponents[it] * 10;
-        exponents[it] += Number(ecuation[i]);
+        exponents[algebraicTermsCounter] =
+          exponents[algebraicTermsCounter] * 10;
+        exponents[algebraicTermsCounter] += Number(ecuation[i]);
         i++;
       }
-      // console.log("EXPONENT "+it+":", exponents[it]);
+      // console.log("EXPONENT "+algebraicTermsCounter+":", exponents[algebraicTermsCounter]);
       i--;
     } else if (ecuation[i] == '.') {
       i++;
@@ -50,30 +54,32 @@ function registerEcuation() {
       let counter = 1;
       while (!isNaN(ecuation[i])) {
         decimalCoefficient = Number(ecuation[i]) * 10 ** -counter;
-        coefficients[it] = coefficients[it] + decimalCoefficient;
+        coefficients[algebraicTermsCounter] =
+          coefficients[algebraicTermsCounter] + decimalCoefficient;
         i++;
         counter++;
       }
       i--;
     } else if (isNaN(ecuation[i])) {
-      it++;
-      operations[it] = ecuation[i];
+      algebraicTermsCounter++;
+      operations[algebraicTermsCounter] = ecuation[i];
       // console.log('NAN: ' + ecuation[i]);
     } else {
-      coefficients[it] = 0;
-      exponents[it] = 0;
+      coefficients[algebraicTermsCounter] = 0;
+      exponents[algebraicTermsCounter] = 0;
       while (!isNaN(ecuation[i])) {
-        coefficients[it] = coefficients[it] * 10;
-        coefficients[it] += Number(ecuation[i]);
+        coefficients[algebraicTermsCounter] =
+          coefficients[algebraicTermsCounter] * 10;
+        coefficients[algebraicTermsCounter] += Number(ecuation[i]);
         i++;
       }
-      // console.log("NUMBER "+it+":", coefficients[it]);
+      // console.log("NUMBER "+algebraicTermsCounter+":", coefficients[algebraicTermsCounter]);
       i--;
     }
   }
 
-  // TEST OF CORRECT BUCKET OF OPERATIONS
-  // for (let i = 0; i <= it; i++) {
+  // // TEST OF CORRECT BUCKET OF OPERATIONS
+  // for (let i = 0; i <= algebraicTermsCounter; i++) {
   //   console.log(
   //     '   ' + operations[i] + ' ' + coefficients[i] + 'x^' + exponents[i]
   //   );
@@ -97,7 +103,7 @@ function evaluateEcuation(variable) {
   }
   var collector = 0;
   var evaluatedValue = 0;
-  for (let i = 0; i <= it; i++) {
+  for (let i = 0; i <= algebraicTermsCounter; i++) {
     evaluatedValue = coefficients[i] * variable ** exponents[i];
     //console.log("\t"+coefficients[i]+"*"+variable+"^"+exponents[i]+"="+evaluatedValue);
     if (operations[i] == '+') {
