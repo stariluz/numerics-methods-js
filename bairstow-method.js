@@ -1,6 +1,110 @@
 var independentVariableR = 0;
 var independentVariableS = 0;
 
+function startCalculations() {
+  registerEcuation();
+  try {
+    getInputs();
+  } catch (error) {
+    cleanResults();
+    return;
+  }
+  bairstowMethod();
+}
+
+function calculateError(currentValue, newValue) {
+  var result = ((newValue - currentValue) / newValue) * 100;
+  //console.log("SUB::", (upper-lower), ", ADD:",(upper+lower),", RESULT:",result);
+  if (result < 0) {
+    result *= -1;
+  }
+  return result;
+}
+function bairstowMethod() {
+  // INPUTS VALIDATIONS
+  if (toleratedError < 0.0000001) {
+    let error = new Error(
+      "ERROR: the tolerated error can't be smaller than 10^-7."
+    );
+    throw error;
+  }
+
+  cleanOperationError();
+  cleanResults();
+
+  table.classList.add('displayed');
+
+  var middleValue = 0;
+  var lowerResult = 0;
+  var middleResult = 0;
+  var decisionFactor = 0;
+  var aproximatedError = 0;
+
+  let newValue, tempValue;
+
+  var arrayBCoefficients = [0, 0]; // The B sub n will start in the position 3 of the array
+  for (let i = 0; i <= algebraicTermsCounter; i++) {
+    tempValue = coefficients[i];
+    if (operations[i] == '-') {
+      tempValue *= -1;
+    }
+    newValue =
+      tempValue +
+      arrayBCoefficients[i + 1] * independentVariableR +
+      arrayBCoefficients[i] * independentVariableS;
+    arrayBCoefficients.push(newValue);
+    console.log('b' + i + ': ', arrayBCoefficients[i + 2]);
+  }
+
+  var arrayCCoefficients = [0, 0]; // The C sub n will start in the position 3 of the array
+  for (let i = 0; i < algebraicTermsCounter; i++) {
+    newValue =
+      arrayBCoefficients[i + 2] +
+      arrayCCoefficients[i + 1] * independentVariableR +
+      arrayCCoefficients[i] * independentVariableS;
+    arrayCCoefficients.push(newValue);
+    console.log('c' + i + ': ', arrayCCoefficients[i + 2]);
+  }
+
+  // for (let iteration = 1; iteration <= iterationsQuantity; iteration++) {
+  //   middleValue = (independentVariableR + independentVariableS) / 2;
+
+  //   lowerResult = evaluateEcuation(independentVariableR);
+  //   middleResult = evaluateEcuation(middleValue);
+  //   decisionFactor = lowerResult * middleResult;
+
+  //   aproximatedError = calculateError(
+  //     independentVariableR,
+  //     independentVariableS
+  //   );
+
+  //   //console.log("LOWER f("+independentVariableR+") = "+lowerResult);
+  //   //console.log("MIDDLE f("+middleValue+") = "+middleResult);
+  //   //console.log("ERROR  = "+aproximatedError);
+
+  //   renderIterationResults(
+  //     iteration,
+  //     independentVariableR,
+  //     independentVariableS,
+  //     middleValue,
+  //     lowerResult,
+  //     middleResult,
+  //     decisionFactor,
+  //     aproximatedError
+  //   );
+
+  //   if (decisionFactor == 0 || aproximatedError < toleratedError) {
+  //     // THE ROOT IS FOUNDED OR THE ERROR IS TOLERATED
+  //     break;
+  //   } else if (decisionFactor < 0) {
+  //     independentVariableS = middleValue;
+  //   } else if (decisionFactor > 0) {
+  //     independentVariableR = middleValue;
+  //   }
+  // }
+  // console.log("RESULT: ", middleResult);
+}
+
 function renderIterationResults(
   iteration,
   independentVariableR,
@@ -45,108 +149,6 @@ function renderIterationResults(
 
   tableResults.appendChild(newRow);
 }
-function calculateError(currentValue, newValue) {
-  var result = ((newValue - currentValue) / newValue) * 100;
-  //console.log("SUB::", (upper-lower), ", ADD:",(upper+lower),", RESULT:",result);
-  if (result < 0) {
-    result *= -1;
-  }
-  return result;
-}
-function bairstowMethod() {
-  // INPUTS VALIDATIONS
-  if (toleratedError < 0.0000001) {
-    let error = new Error(
-      "ERROR: the tolerated error can't be smaller than 10^-7."
-    );
-    throw error;
-  }
-
-  cleanOperationError();
-  cleanResults();
-
-  table.classList.add('displayed');
-
-  var middleValue = 0;
-  var lowerResult = 0;
-  var middleResult = 0;
-  var decisionFactor = 0;
-  var aproximatedError = 0;
-
-  var arrayBValues = [0, 0]; // The B sub n will start in the position 3 of the array
-  for (let i = 0; i <= algebraicTermsCounter; i++) {
-    // console.log(coefficients[i], arrayBValues[i + 1], arrayBValues[i]);
-    let tempValue = coefficients[i];
-    if (operations[i] == '-') {
-      tempValue *= -1;
-    }
-    arrayBValues.push(
-      tempValue +
-        arrayBValues[i + 1] * independentVariableR +
-        arrayBValues[i] * independentVariableS
-    );
-    console.log('b' + i + ': ', arrayBValues[i + 2]);
-  }
-
-  var arrayCValues = [0, 0]; // The C sub n will start in the position 3 of the array
-  for (let i = 0; i < algebraicTermsCounter; i++) {
-    let newValue =
-      arrayBValues[i + 2] +
-      arrayCValues[i + 1] * independentVariableR +
-      arrayCValues[i] * independentVariableS;
-    // console.log(
-    //   newValue + ': ',
-    //   arrayBValues[i + 2],
-    //   arrayCValues[i + 1] * independentVariableR,
-    //   arrayCValues[i] * independentVariableS
-    // );
-    arrayCValues.push(
-      arrayBValues[i + 2] +
-        arrayCValues[i + 1] * independentVariableR +
-        arrayCValues[i] * independentVariableS
-    );
-    console.log('c' + i + ': ', arrayCValues[i + 2]);
-  }
-
-  // var arrayCValues=[];
-  // for (let iteration = 1; iteration <= iterationsQuantity; iteration++) {
-  //   middleValue = (independentVariableR + independentVariableS) / 2;
-
-  //   lowerResult = evaluateEcuation(independentVariableR);
-  //   middleResult = evaluateEcuation(middleValue);
-  //   decisionFactor = lowerResult * middleResult;
-
-  //   aproximatedError = calculateError(
-  //     independentVariableR,
-  //     independentVariableS
-  //   );
-
-  //   //console.log("LOWER f("+independentVariableR+") = "+lowerResult);
-  //   //console.log("MIDDLE f("+middleValue+") = "+middleResult);
-  //   //console.log("ERROR  = "+aproximatedError);
-
-  //   renderIterationResults(
-  //     iteration,
-  //     independentVariableR,
-  //     independentVariableS,
-  //     middleValue,
-  //     lowerResult,
-  //     middleResult,
-  //     decisionFactor,
-  //     aproximatedError
-  //   );
-
-  //   if (decisionFactor == 0 || aproximatedError < toleratedError) {
-  //     // THE ROOT IS FOUNDED OR THE ERROR IS TOLERATED
-  //     break;
-  //   } else if (decisionFactor < 0) {
-  //     independentVariableS = middleValue;
-  //   } else if (decisionFactor > 0) {
-  //     independentVariableR = middleValue;
-  //   }
-  // }
-  // console.log("RESULT: ", middleResult);
-}
 
 function getInputs() {
   tableResults = document.getElementById('table-results-js');
@@ -187,14 +189,3 @@ function getInputs() {
 /*TEST CASE:
 -2+7x-5x^2+6^3  5   0   1   10
 */
-
-function startCalculations() {
-  registerEcuation();
-  try {
-    getInputs();
-  } catch (error) {
-    cleanResults();
-    return;
-  }
-  bairstowMethod();
-}
