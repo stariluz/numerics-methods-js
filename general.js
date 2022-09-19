@@ -33,7 +33,11 @@ function registerEcuation() {
 
   for (let i = 0; i < ecuation.length; i++) {
     if (ecuation[i] == 'x') {
-      if (coefficients[algebraicTermsCounter] == 0 && isNaN(ecuation[i - 1])) {
+      if (
+        (coefficients[algebraicTermsCounter] == 0 ||
+          coefficients[algebraicTermsCounter] == undefined) &&
+        isNaN(ecuation[i - 1])
+      ) {
         coefficients[algebraicTermsCounter] = 1;
       }
       exponents[algebraicTermsCounter] = 1;
@@ -78,15 +82,7 @@ function registerEcuation() {
     }
   }
 
-  for (let i = 0; i <= algebraicTermsCounter; i++) {
-    if (coefficients[i] == 0) {
-      operations.splice(i, 1);
-      coefficients.splice(i, 1);
-      exponents.splice(i, 1);
-      i--;
-      algebraicTermsCounter--;
-    }
-  }
+  reduceEcuation();
 
   // TEST OF CORRECT BUCKET OF OPERATIONS
   for (let i = 0; i <= algebraicTermsCounter; i++) {
@@ -94,15 +90,21 @@ function registerEcuation() {
       '   ' + operations[i] + ' ' + coefficients[i] + 'x^' + exponents[i]
     );
   }
+}
 
-  /* try {
-    callback();
-  } catch (error) {
-    throw error;
-    console.log(error);
-    renderOperationError(error);
-  } */
-  // testFunctions();
+function reduceEcuation() {
+  for (let i = 0; i <= algebraicTermsCounter; i++) {
+    if (coefficients[i] == 0) {
+      operations.splice(i, 1);
+      coefficients.splice(i, 1);
+      exponents.splice(i, 1);
+      i--;
+      algebraicTermsCounter--;
+    } else if (operations[i] === '-') {
+      coefficients[i] *= -1;
+      operations[i] = '+';
+    }
+  }
 }
 
 var memoryEvaluatedFunctionResults = {};
