@@ -51,7 +51,7 @@ function bairstowMethod() {
   var root1, root2;
   var discriminant;
 
-  var rootsCounter = 1;
+  var rootsCounter = -1;
   var iterationsCounter = 1;
 
   while (coefficientsCounter > 2) {
@@ -63,6 +63,7 @@ function bairstowMethod() {
       coefficientsCounter
     ); */
     iterationsCounter = 0;
+    rootsCounter += 2;
 
     do {
       iterationsCounter++;
@@ -158,7 +159,7 @@ function bairstowMethod() {
         aproximatedErrorS
       );
     } while (
-      aproximatedErrorR > toleratedError &&
+      aproximatedErrorR > toleratedError ||
       aproximatedErrorS > toleratedError
     );
 
@@ -176,12 +177,12 @@ function bairstowMethod() {
       let squareRoot = discriminant ** (1 / 2);
       root1 = [parameterR / 2, squareRoot / 2];
       root2 = [parameterR / 2, -squareRoot / 2];
-      render2ComplexRoots(parameterR, parameterS, root1);
+      render2ComplexRoots(rootsCounter, parameterR, parameterS, root1);
     } else {
       let squareRoot = discriminant ** (1 / 2);
       root1 = (parameterR + squareRoot) / 2;
       root2 = (parameterR - squareRoot) / 2;
-      render2Roots(parameterR, parameterS, root1, root2);
+      render2Roots(rootsCounter, parameterR, parameterS, root1, root2);
     }
     console.log('RAICES: ', root1, root2);
 
@@ -195,6 +196,7 @@ function bairstowMethod() {
 
     console.log('\n\n');
   }
+  rootsCounter += 2;
 
   var root1, root2;
   if (coefficientsCounter == 2) {
@@ -214,6 +216,7 @@ function bairstowMethod() {
         -squareRoot / (2 * arrayACoefficients[0]),
       ];
       renderLast2ComplexRoots(
+        rootsCounter,
         arrayACoefficients[0],
         arrayACoefficients[1],
         arrayACoefficients[2],
@@ -226,6 +229,7 @@ function bairstowMethod() {
       root2 =
         (-arrayACoefficients[1] - squareRoot) / (2 * arrayACoefficients[0]);
       renderLast2Roots(
+        rootsCounter,
         arrayACoefficients[0],
         arrayACoefficients[1],
         arrayACoefficients[2],
@@ -237,15 +241,24 @@ function bairstowMethod() {
     console.log('RAICES: ', root1, root2);
   } else if (coefficientsCounter == 1) {
     root1 = -arrayACoefficients[1] / arrayACoefficients[0];
-    renderLastRoot(arrayACoefficients[0], arrayACoefficients[1], root1, root2);
+    renderLastRoot(
+      rootsCounter,
+      arrayACoefficients[0],
+      arrayACoefficients[1],
+      root1,
+      root2
+    );
     console.log('RAIZ: ', root1);
   }
 }
-function render2ComplexRoots(parameterR, parameterS, root1) {
+function render2ComplexRoots(rootsCounter, parameterR, parameterS, root1) {
   newRow = document.createElement('tr');
   newCeld = document.createElement('td');
   newCeld.setAttribute('colspan', 5);
-  newCeld.innerHTML = `<b>x</b> = (${round(parameterR, 4)} &#8723; &radic;(
+  newCeld.classList.add('roots-results');
+  newCeld.innerHTML = `<b>x<sub>${rootsCounter}, ${
+    rootsCounter + 1
+  }</sub></b> = (${round(parameterR, 4)} &#8723; &radic;(
   ${round(parameterR, 4)}^2 + 4*${round(parameterS, 4)}))
    / 2 =
   <b>${round(root1[0], 4)}+${round(
@@ -256,11 +269,14 @@ function render2ComplexRoots(parameterR, parameterS, root1) {
 
   tableResults.appendChild(newRow);
 }
-function render2Roots(parameterR, parameterS, root1, root2) {
+function render2Roots(rootsCounter, parameterR, parameterS, root1, root2) {
   newRow = document.createElement('tr');
   newCeld = document.createElement('td');
   newCeld.setAttribute('colspan', 5);
-  newCeld.innerHTML = `<b>x</b> = (${round(parameterR, 4)} &#8723; &radic;(
+  newCeld.classList.add('roots-results');
+  newCeld.innerHTML = `<b>x<sub>${rootsCounter}, ${
+    rootsCounter + 1
+  }</sub></b> = (${round(parameterR, 4)} &#8723; &radic;(
   ${round(parameterR, 4)}^2 + 4*${round(parameterS, 4)}))
    / 2 =
   <b>${round(root1, 4)},&nbsp;&nbsp;&nbsp;&nbsp;${round(root2, 4)}</b>`;
@@ -268,11 +284,14 @@ function render2Roots(parameterR, parameterS, root1, root2) {
 
   tableResults.appendChild(newRow);
 }
-function renderLast2ComplexRoots(a, b, c, root1) {
+function renderLast2ComplexRoots(rootsCounter, a, b, c, root1) {
   newRow = document.createElement('tr');
   newCeld = document.createElement('td');
   newCeld.setAttribute('colspan', 5);
-  newCeld.innerHTML = `<b>x</b> = (-${round(b, 4)} &#8723; &radic;(
+  newCeld.classList.add('roots-results');
+  newCeld.innerHTML = `<b>x<sub>${rootsCounter}, ${
+    rootsCounter + 1
+  }</sub></b> = (-${round(b, 4)} &#8723; &radic;(
   ${round(b, 4)}^2 - 4*${round(a, 4)}*${round(c, 4)}))
    / (2*${round(a, 4)}) =
    <b>${round(root1[0], 4)}+${round(
@@ -283,11 +302,14 @@ function renderLast2ComplexRoots(a, b, c, root1) {
 
   tableResults.appendChild(newRow);
 }
-function renderLast2Roots(a, b, c, root1, root2) {
+function renderLast2Roots(rootsCounter, a, b, c, root1, root2) {
   newRow = document.createElement('tr');
   newCeld = document.createElement('td');
   newCeld.setAttribute('colspan', 5);
-  newCeld.innerHTML = `<b>x</b> = (-${round(b, 4)} &#8723; &radic;(
+  newCeld.classList.add('roots-results');
+  newCeld.innerHTML = `<b>x<sub>${rootsCounter}, ${
+    rootsCounter + 1
+  }</sub></b> = (-${round(b, 4)} &#8723; &radic;(
   ${round(b, 4)}^2 - 4*${round(a, 4)}*${round(c, 4)}))
    / (2*${round(a, 4)}) =
   <b>${round(root1, 4)},;&nbsp;&nbsp;&nbsp;&nbsp;${round(root2, 4)}</b>`;
@@ -295,11 +317,14 @@ function renderLast2Roots(a, b, c, root1, root2) {
 
   tableResults.appendChild(newRow);
 }
-function renderLastRoot(a, b, root) {
+function renderLastRoot(rootsCounter, a, b, root) {
   newRow = document.createElement('tr');
   newCeld = document.createElement('td');
   newCeld.setAttribute('colspan', 5);
-  newCeld.innerHTML = `<b>x</b> = ${b > 0 ? '-' : '+'} ${round(b, 4)} /
+  newCeld.classList.add('roots-results');
+  newCeld.innerHTML = `<b>x<sub>${rootsCounter}</sub></b> = ${
+    b > 0 ? '-' : '+'
+  } ${round(b, 4)} /
   ${round(a, 4)} = <b>${round(root, 4)}</b>`;
   newRow.appendChild(newCeld);
 
