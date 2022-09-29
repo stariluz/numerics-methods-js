@@ -37,114 +37,114 @@
         <div class="row row-cols-4 mb-3">
             <div class="col">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>1</sub>" value="5"/>
+                    <input type="number" class="form-control" id="1-a1" placeholder="a<sub>1</sub>" value="3"/>
                     <span class="input-group-text">x<sub>1</sub></span>
                 </div>
             </div>
             <div class="col input-group--signed">
                 <span class="operator-sign">+</span>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>2</sub>" value="5"/>
+                    <input type="number" class="form-control" id="1-a2" placeholder="a<sub>2</sub>" value="-0.1"/>
                     <span class="input-group-text">x<sub>2</sub></span>
                 </div>
             </div>
             <div class="col input-group--signed">
                 <span class="operator-sign">+</span>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>3</sub>" value="5"/>
+                    <input type="number" class="form-control" id="1-a3" placeholder="a<sub>3</sub>" value="-0.2"/>
                     <span class="input-group-text">x<sub>3</sub></span>
                 </div>
             </div>
             
             <div class="col input-group--signed">
                 <span class="operator-sign">=</span>
-                <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>0</sub>" value="5"/>
+                <input type="number" class="form-control" id="1-a0" placeholder="a<sub>0</sub>" value="7.85"/>
             </div>
         </div>
         <div class="row row-cols-4 mb-3">
             <div class="col">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>1</sub>" value="5"/>
+                    <input type="number" class="form-control" id="2-a1" placeholder="a<sub>1</sub>" value="0.1"/>
                     <span class="input-group-text">x<sub>1</sub></span>
                 </div>
             </div>
             <div class="col input-group--signed">
                 <span class="operator-sign">+</span>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>2</sub>" value="5"/>
+                    <input type="number" class="form-control" id="2-a2" placeholder="a<sub>2</sub>" value="7"/>
                     <span class="input-group-text">x<sub>2</sub></span>
                 </div>
             </div>
             <div class="col input-group--signed">
                 <span class="operator-sign">+</span>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>3</sub>" value="5"/>
+                    <input type="number" class="form-control" id="2-a3" placeholder="a<sub>3</sub>" value="-0.3"/>
                     <span class="input-group-text">x<sub>3</sub></span>
                 </div>
             </div>
             
             <div class="col input-group--signed">
                 <span class="operator-sign">=</span>
-                <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>0</sub>" value="5"/>
+                <input type="number" class="form-control" id="2-a0" placeholder="a<sub>0</sub>" value="-19.3"/>
             </div>
         </div>
         <div class="row row-cols-4 mb-3">
             <div class="col">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>1</sub>" value="5"/>
+                    <input type="number" class="form-control" id="3-a1" placeholder="a<sub>1</sub>" value="0.3"/>
                     <span class="input-group-text">x<sub>1</sub></span>
                 </div>
             </div>
             <div class="col input-group--signed">
                 <span class="operator-sign">+</span>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>2</sub>" value="5"/>
+                    <input type="number" class="form-control" id="3-a2" placeholder="a<sub>2</sub>" value="-0.2"/>
                     <span class="input-group-text">x<sub>2</sub></span>
                 </div>
             </div>
             <div class="col input-group--signed">
                 <span class="operator-sign">+</span>
                 <div class="input-group">
-                    <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>3</sub>" value="5"/>
+                    <input type="number" class="form-control" id="3-a3" placeholder="a<sub>3</sub>" value="10"/>
                     <span class="input-group-text">x<sub>3</sub></span>
                 </div>
             </div>
             
             <div class="col input-group--signed">
                 <span class="operator-sign">=</span>
-                <input type="number" class="form-control" id="iterations-quantity" placeholder="a<sub>0</sub>" value="5"/>
+                <input type="number" class="form-control" id="3-a0" placeholder="a<sub>0</sub>" value="71.4"/>
             </div>
         </div>
           <!-- <button class="btn btn-secondary" onclick="addRoot()">+ Add a root to search</button> -->
-        <button class="btn btn-primary" onclick="startCalculations()">Get the the aproximation for the ecuation</button>
+        <button class="btn btn-primary" onclick="startCalculations()">Get the the aproximation for x values</button>
     </section>
     <section class="results">
         <div class="toast-container position-absolute top-0 end-0 p-3" id="error-js">
         </div>
-        <table class="table table-striped transition" id="table-js">
+        <table class="table table-striped table-bordered text-center" id="table-js">
             <thead id="table-header-js">
                 <tr>
-                    <td scope="col">It.</td>
-                    <td scope="col">Limits</td>
-                    <td scope="col">Aproximation</td>
-                    <td scope="col">Operations</td>
-                    <td scope="col">Error</td>
+                    <!-- <td>Ecuaciones</td> -->
+                    <td>x<sub>1</sub></td>
+                    <td>x<sub>2</sub></td>
+                    <td>x<sub>3</sub></td>
+                    <!-- <td>Result</td> -->
                 </tr>
             </thead>
             <tbody id="table-results-js">
                 <!-- <tr>
-                    <td>asdasd</td>
-                    <td>asdasd</td>
-                    <td>asdasdasdsa</td>
-                    <td>Operations</td>
-                    <td>Error</td>
+                    <td>Ec1:</td>
+                    <td>1</td>
+                    <td>+1</td>
+                    <td>+1</td>
+                    <td>1</td>
                 </tr> -->
             </tbody>
         </table>
     </section>
     <!-- <a href="https://www.flaticon.es/iconos-gratis/error" title="error iconos">Error iconos creados por juicy_fish - Flaticon</a> -->
 
-    <script src="general.js"></script>
+    <script src="script.js"></script>
     <script src="bisection-method.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
