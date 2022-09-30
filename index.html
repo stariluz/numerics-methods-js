@@ -121,24 +121,30 @@
     <section class="results">
         <div class="toast-container position-absolute top-0 end-0 p-3" id="error-js">
         </div>
-        <table class="table table-striped table-bordered text-center" id="table-js">
+        <table class="table table-striped table-bordered text-center visible not-visible" id="end-matrix-table-js">
             <thead id="table-header-js">
                 <tr>
-                    <!-- <td>Ecuaciones</td> -->
+                    <td colspan="4">Final matrix</td>
+                </tr>
+                <tr>
+                    <td>x<sub>1</sub></td>
+                    <td>+ x<sub>2</sub></td>
+                    <td>+ x<sub>3</sub></td>
+                    <td>=</td>
+                </tr>
+            </thead>
+            <tbody id="end-matrix-js">
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered text-center visible not-visible" id="table-js">
+            <thead id="table-header-js">
+                <tr>
                     <td>x<sub>1</sub></td>
                     <td>x<sub>2</sub></td>
                     <td>x<sub>3</sub></td>
-                    <!-- <td>Result</td> -->
                 </tr>
             </thead>
             <tbody id="table-results-js">
-                <!-- <tr>
-                    <td>Ec1:</td>
-                    <td>1</td>
-                    <td>+1</td>
-                    <td>+1</td>
-                    <td>1</td>
-                </tr> -->
             </tbody>
         </table>
     </section>
