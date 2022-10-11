@@ -32,14 +32,15 @@ function startCalculations() {
   console.log(ecuationsMatrix);
   var x = getXValuesWithGaussSeidelMethod(ecuationsMatrix, 3, toleratedError);
 
-  // console.log(x);
-  printResults(x);
+  printResults(x); // Show in the page the final results
 }
 function getXValuesWithGaussSeidelMethod(coeficientsMatrix, numberOfUnknownsX, toleratedError) {
   var iterationsCounter = 0;
   var x = new Array(numberOfUnknownsX + 1);
   var old_x = new Array(numberOfUnknownsX + 1);
   var aproximatedErrorOfX = new Array(numberOfUnknownsX + 1);
+
+  // Set initial values of x in 0s;
   for(let i=1; i<=numberOfUnknownsX; i++){
     x[i]=Number(0);
   }
@@ -49,16 +50,14 @@ function getXValuesWithGaussSeidelMethod(coeficientsMatrix, numberOfUnknownsX, t
     for(let i=1; i<=numberOfUnknownsX; i++){
       old_x[i]=x[i];
       x[i]=coeficientsMatrix[i][0];
-      //console.log("X"+i+"=",x[i]);
+
       for(let j=1; j<=numberOfUnknownsX; j++){
         if(j==i) continue;
-        //console.log("A:", coeficientsMatrix[i][j], x[j]);
         x[i]-=(coeficientsMatrix[i][j]*x[j]);
-        //console.log("X"+i+"=",x[i]);
       }
+
       x[i]/=coeficientsMatrix[i][i];
-      console.log("X"+i+"=",x[i]);
-      console.log(x);
+
       aproximatedErrorOfX[i]=(x[i]-old_x[i])/x[i]*100;
     }
     printIterationValues(iterationsCounter, x, aproximatedErrorOfX);
@@ -68,7 +67,7 @@ function getXValuesWithGaussSeidelMethod(coeficientsMatrix, numberOfUnknownsX, t
     ||aproximatedErrorOfX[3]>toleratedError
   );
 
-  // ROUND ALL X TO 6 DECIMALS
+  // Round all final values of X's to 6 digits
   x = x.map((xi) => {
     return round(xi, 6);
   });
@@ -76,11 +75,15 @@ function getXValuesWithGaussSeidelMethod(coeficientsMatrix, numberOfUnknownsX, t
   return x;
 }
 
+
 function round(number, decimalsQuantity) {
+  /* Round function: Request a number and a decimals quantity number, and return the number rounded to that quantity of decimals */
   let temp = 10 ** decimalsQuantity;
   return Math.round((number + Number.EPSILON) * temp) / temp;
 }
+
 function cleanIterations() {
+  /* Clean old iterations from past executions */
   var tableIterations = document.getElementById('iterations-table-content-js');
   tableIterations.innerHTML=null;
 }
@@ -103,10 +106,13 @@ function printIterationValues(iterationNumber, x, aproximatedErrorOfX) {
   newRow.appendChild(newCeld);
 
   for(let i=1; i<x.length; i++){
+
+    /* Print the value of the x_i */
     newCeld = document.createElement('td');
     newCeld.innerHTML = x[i];
     newRow.appendChild(newCeld);
 
+    /* Print the value of the aproximated error of the x_i */
     newCeld = document.createElement('td');
     newCeld.innerHTML = aproximatedErrorOfX[i];
     newRow.appendChild(newCeld);
@@ -114,6 +120,7 @@ function printIterationValues(iterationNumber, x, aproximatedErrorOfX) {
 
   tableIterations.appendChild(newRow);
 }
+
 function printResults(x) {
   var tableResults = document.getElementById('results-table-content-js');
   tableResults.innerHTML = null;
