@@ -49,12 +49,7 @@ header h5 {
   font-size: small !important;
   padding: 5px;
 }
-.dropdown {
-  height: min-content;
-}
-.dropdown .dropdown-toggle {
-  border-radius: 0px 0px 0px 1rem;
-}
+
 .input-section {
   background-color: rgb(105, 138, 136);
   width: 100%;
@@ -70,16 +65,11 @@ header h5 {
   font-weight: 700;
   max-width: 7rem;
 }
-.operator-sign {
-  position: absolute;
-  left: 0%;
-  top: 50%;
-  transform: translate(-5px, -50%);
-  color: white;
-  font-weight: 700;
-  /* right: calc(100% + 5px); */
-}
 
+.input-section button {
+  box-shadow: inset -1px -2px 2px 0px rgba(255, 255, 255, 0.2),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 0px 2px 2px rgba(91, 91, 91, 0.2);
+}
 .operator-error {
   position: absolute;
   left: 0%;
@@ -88,10 +78,6 @@ header h5 {
   color: white;
   font-weight: 700;
   /* right: calc(100% + 5px); */
-}
-.input-section button {
-  box-shadow: inset -1px -2px 2px 0px rgba(255, 255, 255, 0.2),
-    0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 0px 2px 2px rgba(91, 91, 91, 0.2);
 }
 .main-title {
   text-align: center;

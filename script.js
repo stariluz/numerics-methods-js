@@ -1,159 +1,92 @@
+// STATIC VARIABLES
+numberOfPoints = 0;
+
+
 function startCalculations() {
   function getInputsValues() {
-    function getField(row, column) {
-      return Number(document.getElementById(`${row}-a${column}`).value);
-    }
-
-    var ecuationsMatrix = [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ];
-
-    for (let i = 1; i <= 3; i++) {
-      for (let j = 0; j <= 3; j++) {
-        ecuationsMatrix[i][j] = getField(i, j);
+    function getField(coord, index) {
+      if(coord!='x'&&coord!='y'){
+        throw Error("The provided coord is not 'x' or 'y'.");
       }
+      return Number(document.getElementById(`${coord}${index}`).value);
     }
-    // console.log(ecuationsMatrix);
 
-    return ecuationsMatrix;
+    var points=new Array(numberOfPoints+1);
+    for (let i = 1; i <= numberOfPoints; i++) {
+      points[i]={
+        x:0,
+        y:0
+      };
+    }
+
+    for (let i = 1; i <= numberOfPoints; i++) {
+      points[i].x = getField('x', i);
+      points[i].y = getField('y', i);
+    }
+
+    return points;
   }
 
-  var ecuationsMatrix = getInputsValues();
+  var points = getInputsValues();
 
-  var x = calculateXValues(ecuationsMatrix, 3);
+  var coefficientsAResulted = calculateACoefficients(points);
 
-  console.log(ecuationsMatrix);
-  printResults(x);
+  console.log(coefficientsAResulted);
+  printResult(coefficientsAResulted);
 }
-function calculateXValues(ecuationsMatrix, n) {
-  var factor = 0;
-  var x = new Array(n + 1);
-  var sumAux = 0;
+function calculateACoefficients(points) {
+  var coefficientsA=[0,0];
+  var numberOfPoints = points.length-1;
+  var sumOfXtimesY=0;
+  var sumOfY=0;
+  var sumOfX=0;
+  var sumOfXpow2=0;
+  
+  console.log(points);
 
-  for (let k = 1; k < n; k++) {
-    for (let i = k + 1; i <= n; i++) {
-      factor = ecuationsMatrix[i][k] / ecuationsMatrix[k][k];
-      // console.log('FACTOR', factor);
-      for (let j = k + 1; j <= n; j++) {
-        ecuationsMatrix[i][j] -= factor * ecuationsMatrix[k][j];
-      }
-      ecuationsMatrix[i][k] = 0;
-      ecuationsMatrix[i][0] -= factor * ecuationsMatrix[k][0];
-      // console.log(ecuationsMatrix[i]);
-    }
+  for(let i=1; i<=numberOfPoints; i++){
+  // console.log(points[i]);
+    sumOfXtimesY+=points[i].x*points[i].y;
+    sumOfX+=points[i].x;
+    sumOfY+=points[i].y;
+    sumOfXpow2+=Math.pow(points[i].x,2);
   }
-  printMatrix('end', ecuationsMatrix);
-  x[n] = ecuationsMatrix[n][0] / ecuationsMatrix[n][n];
+  coefficientsA[1] = (numberOfPoints*sumOfXtimesY-sumOfX*sumOfY)/(numberOfPoints*sumOfXpow2-Math.pow(sumOfX,2));
+  coefficientsA[0] = (sumOfY/numberOfPoints) - coefficientsA[1]*(sumOfX/numberOfPoints);
 
-  for (let i = n - 1; i >= 1; i--) {
-    sumAux = ecuationsMatrix[i][0];
-    for (let j = i + 1; j <= n; j++) {
-      sumAux -= ecuationsMatrix[i][j] * x[j];
-    }
-    x[i] = sumAux / ecuationsMatrix[i][i];
-  }
+  return coefficientsA;
+}
+function printResult(coefficientsA) {
+  var resultCeld = document.getElementById("result-celd-js");
+  resultCeld.innerHTML = null;
 
-  x = x.map((xi) => {
-    return round(xi, 6);
-  });
+  resultCeld.innerText=`y = ${coefficientsA[0]} + ${coefficientsA[1]}x`;
+}
+function addPointFields() {
+  numberOfPoints++;
+  var pointsContainer = document.getElementById("points-inputs-container-js");
+  var newField = document.createElement("div");
 
-  return x;
+  newField.classList.add("col");
+  newField.innerHTML = `
+    <div class="input-group mb-3">
+      <div class="input-group-text">(</div>
+      <div class="form-floating">
+        <input type="number" class="form-control" id="x${numberOfPoints}" placeholder="x${numberOfPoints}" />
+        <label for="x${numberOfPoints}">x${numberOfPoints} </label>
+      </div>
+      <div class="form-floating">
+        <input type="number" class="form-control" id="y${numberOfPoints}" placeholder="y${numberOfPoints}" />
+        <label for="y${numberOfPoints}">y${numberOfPoints}</label>
+      </div>
+      <div class="input-group-text">)</div>
+    </div>`;
+    pointsContainer.appendChild(newField);
 }
 
-function round(number, decimalsQuantity) {
-  let temp = 10 ** decimalsQuantity;
-  return Math.round((number + Number.EPSILON) * temp) / temp;
-}
-function printMatrix(identifier, matrix) {
-  var matrixTable = document.getElementById(`${identifier}-matrix-table-js`);
-  var matrixContent = document.getElementById(`${identifier}-matrix-js`);
-  matrixTable.classList.remove('not-visible');
-  matrixContent.innerHTML = null;
 
-  var newRow;
-  var newCeld;
-
-  newRow = document.createElement('tr');
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[1][1];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[1][2];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[1][3];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[1][0];
-  newRow.appendChild(newCeld);
-
-  matrixContent.appendChild(newRow);
-
-  newRow = document.createElement('tr');
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[2][1];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[2][2];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[2][3];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[2][0];
-  newRow.appendChild(newCeld);
-
-  matrixContent.appendChild(newRow);
-
-  newRow = document.createElement('tr');
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[3][1];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[3][2];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[3][3];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = matrix[3][0];
-  newRow.appendChild(newCeld);
-
-  matrixContent.appendChild(newRow);
+function main(){
+  addPointFields();
 }
 
-function printResults(x) {
-  var tableResults = document.getElementById('table-results-js');
-  tableResults.innerHTML = null;
-
-  var newRow = document.createElement('tr');
-  var newCeld = document.createElement('td');
-
-  newCeld.innerHTML = x[1];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = x[2];
-  newRow.appendChild(newCeld);
-
-  newCeld = document.createElement('td');
-  newCeld.innerHTML = x[3];
-  newRow.appendChild(newCeld);
-
-  tableResults.appendChild(newRow);
-}
+main();
