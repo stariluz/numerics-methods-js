@@ -114,7 +114,7 @@ function printIterationValues(iterationNumber, x, aproximatedErrorOfX) {
 
     /* Print the value of the aproximated error of the x_i */
     newCeld = document.createElement('td');
-    newCeld.innerHTML = aproximatedErrorOfX[i];
+    newCeld.innerHTML = aproximatedErrorOfX[i]+"%";
     newRow.appendChild(newCeld);
   }
 
