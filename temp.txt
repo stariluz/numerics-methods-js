@@ -1,0 +1,4 @@
+for FILE in *.html; do git mv $FILE InterpolationAndPolynomialApproximation/; done
+for FILE in *.js; do git mv $FILE InterpolationAndPolynomialApproximation/; done
+for FILE in *.css; do git mv $FILE InterpolationAndPolynomialApproximation/; done
+for FILE in *.md; do git mv $FILE InterpolationAndPolynomialApproximation/; done
