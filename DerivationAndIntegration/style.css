@@ -1,0 +1,55 @@
+* {
+  font-family: 'Bitter', serif;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+.operator-error {
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  transform: translate(calc(-100% - 10px), -50%);
+  color: white;
+  font-weight: 700;
+}
+.main-title {
+  text-align: center;
+  color: white;
+  padding: 0px 1rem;
+  box-shadow: 0px 0px 10px -2px rgb(255, 255, 255); 
+}
+
+.results {
+  position: relative;
+  padding: 1rem;
+  max-width: 100%;
+  overflow: auto;
+}
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 0px 2px #c7c7c7;
+  /* width: fit-content !important ; */
+  margin: auto;
+}
+.table td {
+  padding: 0.5rem 1rem !important;
+  font-weight: 700;
+}
+.table-header {
+  font-size: large;
+  text-align: center;
+  background: aliceblue !important;
+}
+td {
+  line-height: 2rem !important;
+}
+.roots-results {
+  text-align: end;
+  font-size: large;
+  color: rgb(0, 0, 0) !important;
+  background-color: rgb(231, 216, 248) !important;
+}

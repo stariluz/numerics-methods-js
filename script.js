@@ -1,6 +1,3 @@
-
-// import {pages} from './pages.json' assert {type: 'json'};
-// const pages = require('./pages.json');
 let pages=[
   {
     "root": "RootsOfEquations",
@@ -76,13 +73,27 @@ let pages=[
 ];
 
 let navbar = document.getElementById("navbar");
+let contentFrame = document.getElementById("content");
 
 main();
 async function main(){
   await initNavbar();
   addListenerToNavigation();
+  contentFrame.src=`./${pages[3].root}/${pages[3].children[1].file}`;
 }
-
+function updateURL(section,page){
+  let url=`./${pages[section].root}/${pages[section].children[page].file}`;
+  let pageTitle=`${pages[section].children[page].name} | ${pages[section].name}`;
+  contentFrame.src=url;
+  history.replaceState({
+    id: url,
+  }, pageTitle, url);
+}
+window.addEventListener('popstate', (event)=>{
+  if (history.state && history.state.id === 'homepage') {
+    contentFrame.src=url;
+  }
+}, false);
 function initNavbar(){
   return new Promise((resolve,reject)=>{
     for (let i in pages) {
@@ -125,13 +136,12 @@ function addListenerToNavigation() {
  * @param {Event} event 
  */
 function onNavigate(event){
-  console.log(event.target);
+  // console.log(event.target); 
   element=event.target;
   // let element=new Element();
   let index=element.getAttribute('pageIndex').split(" ");
   // let contentContainer = document.getElementById("content-container");
-  let contentFrame = document.getElementById("content");
-  contentFrame.src=`./${pages[index[0]].root}/${pages[index[0]].children[index[1]].file}`;
+  updateURL(index[0],index[1]);
 }
 
 let counter=true;
