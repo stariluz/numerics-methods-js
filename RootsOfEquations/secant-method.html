@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secant Method | Adrian Gonzalez | 2022</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Combo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+      <h5 class="mb-0">This is a program of Adrian González &#128152 for the Numerics Methods Subject. Last modification: Sep/14/2022</h5>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            More methods
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="./bisection-method.html">Bisection method</a></li>
+          <li><a class="dropdown-item" href="./bairstow-method.html">Bairstow method</a></li>
+        </ul>
+      </div>
+    </header>
+    <section class="input-section mb-3">
+        <h1>SECANT METHOD PROGRAM</h1>
+        <!-- GENERAL INPUTS -->
+        <div class="input-group mb-3">
+          <div class="form-floating">
+            <input type="text" class="ecuation form-control" id="ecuation" placeholder="Ecuation" value="-11-22x+17x^2-2.5x^3"/>
+            <label for="ecuation">Ecuation</label>
+          </div>
+          <div class="form-floating">
+            <input type="number" class="form-control" id="tolerated-error" placeholder="Tolerated error"
+              value="0.05"
+            />
+            <label for="tolerated-error">Tolerated error</label>
+          </div>
+        </div>
+
+        <!-- CUSTOM INPUTS -->
+        <div class="w-100">
+          <div class="row row-cols-2" id="roots-container-js">
+            <div class="col">
+              <div class="input-group mb-3">
+                <div class="input-group-text">Root 1</div>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="iterations-quantity1" placeholder="Amount of iterations"
+                    value="5"
+                  />
+                  <label for="iterations-quantity1">Amount of iterations</label>
+                </div>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="previous-value1" placeholder="First previous value"
+                    value="-0.5"
+                  />
+                  <label for="previous-value1">First previous value</label>
+                </div>
+                <div class="form-floating">
+                  <input type="number" class="form-control" id="current-value1" placeholder="First current value"
+                    value="0"
+                  />
+                  <label for="current-value1">First current value</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="buttons-section">
+          <button class="btn btn-secondary" onclick="addRoot()">+ Add a root to search</button>
+          <button class="btn btn-primary" onclick="startCalculations()">Get the the aproximation for the ecuation</button>
+        </div>
+    </section>
+    <section class="results">
+        <div class="toast-container position-absolute top-0 end-0 p-3" id="error-js">
+        </div>
+        <div id="tables-container-js">
+            <table class="table table-striped transition mb-4" id="table-js1">
+              <thead id="table-header-js1">
+                <tr>
+                  <th colspan="5" class="table-header">Root 1</th>
+                </tr>
+                <tr>
+                    <th scope="col">It.</th>
+                    <th scope="col">Limits</th>
+                    <th scope="col">Aproximation</th>
+                    <th scope="col">Operations</th>
+                    <th scope="col">Error</td>
+                </tr>
+              </thead>
+              <tbody id="table-results-js1">
+              </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- <a href="https://www.flaticon.es/iconos-gratis/error" title="error iconos">Error iconos creados por juicy_fish - Flaticon</a> -->
+
+    <script src="general.js"></script>
+    <script src="secant-method.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -5,71 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bisection Method | Adrian Gonzalez | 2022</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Combo&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h5 class="mb-0">This is a program of Adrian González &#128152 for the Numerics Methods Subject. Last modification: Oct/11/2022</h5>
-        <nav>
-            <a href="#" class="btn btn-success" aria-current="page">Linear regression</a>
-        </nav>
-    </header>
-    <section class="input-section">
-        <h1 class="main-title">Interpolation and polynomial aproximation: <br>Linear regression</h1>
-        
-        <div class="container-fluid">
-            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 row-cols-xxl-6" id="points-inputs-container-js">
-                <!-- <div class="col">
-                    <div class="input-group mb-3">
-                        <div class="input-group-text">(</div>
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="iterations-quantity1" placeholder="xi"
-                            value="0"
-                            />
-                            <label for="iterations-quantity1">xi</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="previous-value1" placeholder="yi"
-                            value="0"
-                            />
-                            <label for="previous-value1">yi</label>
-                        </div>
-                        <div class="input-group-text">)</div>
-                    </div>
-                </div> -->
-            </div>
+  <header>
+    <h5 class="mb-0">This is a program of Adrian González &#128152 for the Numerics Methods Subject. Last modification: Oct/11/2022</h5>
+    <nav class="navbar" id="navbar-container">
+      <button class="button-display-more" id="button-display-nav"><span>Open navigation</span>
+        <div class="icon-display-more">
+          <svg
+            width="18"
+            height="10"
+            viewBox="0 0 18 10"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.3632 0.656392C17.1958 0.47945 16.9253 0.448867 16.7226 0.583975L17 1L16.7226 0.584001L16.7224 0.584128L16.7216 0.584684L16.7181 0.586993L16.7041 0.596313L16.6487 0.633041C16.6 0.665294 16.5282 0.712719 16.4363 0.773145C16.2524 0.894008 15.988 1.06684 15.6664 1.2743C15.023 1.68941 14.1522 2.24228 13.2408 2.79462C12.328 3.34789 11.3813 3.8964 10.5843 4.30509C10.1853 4.50974 9.83202 4.67504 9.54402 4.78799C9.23667 4.90852 9.06396 4.94444 9 4.94444C8.93604 4.94444 8.76333 4.90852 8.45598 4.78799C8.16798 4.67504 7.81472 4.50974 7.41566 4.30509C6.6187 3.8964 5.67205 3.34789 4.75915 2.79462C3.84779 2.24228 2.97699 1.68941 2.33356 1.2743C2.012 1.06684 1.74757 0.894008 1.56369 0.773145C1.47176 0.712719 1.39997 0.665294 1.35127 0.633041L1.2959 0.596313L1.28188 0.586993L1.27841 0.584684L1.27758 0.584128L1.27739 0.584001L1 1L1.27735 0.583975C1.07469 0.448867 0.804158 0.47945 0.636773 0.656392C0.469388 0.833334 0.453858 1.10514 0.6 1.3C2.23046 3.47395 3.91151 5.4923 5.35951 6.97221C6.08242 7.71104 6.75769 8.32648 7.34719 8.76094C7.64189 8.97814 7.92532 9.15771 8.19067 9.28471C8.44999 9.40884 8.72727 9.5 9 9.5C9.27148 9.5 9.5474 9.41051 9.80618 9.28767C10.0707 9.16213 10.3528 8.9845 10.6461 8.76936C11.2327 8.33905 11.9043 7.72858 12.6248 6.99308C14.0679 5.51984 15.749 3.50132 17.4 1.3C17.5461 1.10514 17.5306 0.833334 17.3632 0.656392Z"
+              fill="white"
+              fill-opacity="1"
+              stroke="#232323"
+              stroke-linejoin="round"
+            />
+          </svg>
         </div>
-        <button class="btn btn-secondary" onclick="addPointFields()">+ Add a new point input</button>
-        <button class="btn btn-primary" onclick="startCalculations()">Get the the aproximation for x values</button>
-    </section>
-    <section class="results">
-        <div class="toast-container position-absolute top-0 end-0 p-3" id="error-js">
-        </div>
-        <table class="table table-striped table-bordered text-center visible not-visible">
-            <thead>
-                <tr>
-                    <td colspan="4">Result:</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="result-celd-js">
+      </button>
+      <div class="navbar-sections" id="navbar">
 
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    <!-- <a href="https://www.flaticon.es/iconos-gratis/error" title="error iconos">Error iconos creados por juicy_fish - Flaticon</a> -->
-
-    <script src="script.js"></script>
-    <script src="bisection-method.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+      </div>
+    </nav>
+  </header>
+  <iframe width="100%" height="100%" src="" frameborder="0" id="content" scrolling="yes"></iframe>
+  
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>

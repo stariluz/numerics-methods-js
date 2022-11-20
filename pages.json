@@ -1,0 +1,75 @@
+{
+    "pages": [
+        {
+          "root": "RootsOfEquations",
+          "name": "Roots of equations",
+          "id": "roots-of-equations",
+          "children": [
+            {
+              "file": "bisection-method.html",
+              "name": "Bisection method"
+            },
+            {
+              "file": "bairstow-method.html",
+              "name": "Bairstow method"
+            },
+            {
+              "file": "secant-method.html",
+              "name": "Secant method"
+            }
+          ]
+        },
+        {
+          "root": "SimultaneousLinearEcuations",
+          "name": "Simultaneous linear equations",
+          "id": "simultaneous-linear-equations",
+          "children": [
+            {
+              "file": "gauss.html",
+              "name": "Gauss method"
+            },
+            {
+              "file": "gauss-seidel.html",
+              "name": "Gauss-Seidel method"
+            }
+          ]
+        },
+        {
+          "root": "InterpolationAndPolynomialApproximation",
+          "name": "Interpolation and polynomial approximation",
+          "id": "interpolation-and-polynomial-approximation",
+          "children": [
+            {
+              "file": "linear-regretion.html",
+              "name": "Linear regression"
+            }
+          ]
+        },
+        {
+          "root": "DerivationAndIntegration",
+          "name": "Derivation and integration",
+          "id": "derivation-and-integration",
+          "children": [
+            {
+              "file": "derivation.html",
+              "name": "Derivation"
+            },
+            {
+              "file": "integration.html",
+              "name": "Integration"
+            }
+          ]
+        },
+        {
+          "root": "DifferentialEquations",
+          "name": "Differential equations",
+          "id": "differential-equations",
+          "children": [
+            {
+              "file": "runge-kutta.html",
+              "name": "Runge-Kutta method"
+            }
+          ]
+        }
+      ]
+}
