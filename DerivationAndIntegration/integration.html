@@ -25,53 +25,103 @@
 <body>
   <section class="input-section">
     <h1 class="main-title">Integration: Simpson 1/3 and 3/8</h1>
-    <div class="">
-      <div class="equation-container">
-        <div id="equation-begin">
-          <span class="operator-sign">f<sub>(x)</sub> =</span>
+    <div class="equation-container">
+      <div id="equation-begin">
+        <span class="operator-sign">f<sub>(x)</sub> =</span>
+      </div>
+      <!-- <div>
+        <span class="operator-sign">+</span>
+        <div class="input-group">
+          <input
+            type="number"
+            class="form-control a-value-js"
+            id="a0"
+            placeholder="a0"
+          />
+          <span class="input-group-text">x<sup>0</sup></span>
         </div>
-        <div>
-          <span class="operator-sign">+</span>
-          <div class="input-group">
-            <input
-              type="number"
-              class="form-control a-value-js"
-              id="a0"
-              placeholder="a0"
-            />
-            <span class="input-group-text">x<sup>0</sup></span>
-          </div>
-        </div>
-        <div>
-          <button class="btn btn-success" id="increase-grade">
-            + Increase grade
-          </button>
-          <button class="btn btn-danger" id="decrease-grade">
-            - Decrease grade
-          </button>
-        </div>
+      </div> -->
+      <div>
+        <button class="btn btn-success" id="increase-grade">
+          + Increase grade
+        </button>
+        <button class="btn btn-danger" id="decrease-grade">
+          - Decrease grade
+        </button>
+      </div>
+    </div>
+    <div class="configuration-container">
+      <div class="input-group">
+        <span class="input-group-text">Initial X</span>
+        <input
+          type="number"
+          class="form-control a-value-js"
+          id="initial-x"
+          placeholder="a"
+          value="0"
+        />
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Final X</span>
+        <input
+          type="number"
+          class="form-control a-value-js"
+          id="final-x"
+          placeholder="b"
+          value="0.8"
+        />
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Number of segments:</span>
+        <input
+          type="number"
+          class="form-control a-value-js"
+          id="number-segments"
+          placeholder="n"
+          value="5"
+        />
       </div>
     </div>
     <button class="btn btn-primary btn-calculate" id="calculate">
       Calculate
     </button>
   </section>
-  <!-- <section class="results">
+  <section class="results">
     <table
       class="table table-striped table-bordered text-center visible not-visible"
     >
       <thead>
         <tr>
-          <td colspan="4">Result:</td>
+          <th colspan="4">Result:</th>
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td id="evaluations-celd-js"></td>
+        </tr>
         <tr>
           <td id="result-celd-js"></td>
         </tr>
       </tbody>
     </table>
-  </section> -->
+    <table
+      class="table table-striped table-bordered text-center visible not-visible"
+    >
+      <thead>
+        <tr>
+          <th colspan="4">Error calculation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="error-operations-celd-js"></td>
+        </tr>
+        <tr>
+          <td id="error-celd-js"></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
   <script src="integration.js"></script>
   <script
