@@ -79,7 +79,8 @@ main();
 async function main(){
   await initNavbar();
   addListenerToNavigation();
-  contentFrame.src=`./${pages[3].root}/${pages[3].children[1].file}`;
+  // contentFrame.src=`./${pages[3].root}/${pages[3].children[1].file}`;
+  contentFrame.src=`./${pages[3].root}/${pages[3].children[0].file}`;
 }
 function updateURL(section,page){
   let url=`./${pages[section].root}/${pages[section].children[page].file}`;
