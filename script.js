@@ -64,9 +64,13 @@ let pages=[
     "name": "Differential equations",
     "id": "differential-equations",
     "children": [
-      {
+      /* {
         "file": "runge-kutta.html",
         "name": "Runge-Kutta method"
+      } */
+      {
+        "file": "euler.html",
+        "name": "Euler method"
       }
     ]
   }
@@ -80,7 +84,8 @@ async function main(){
   await initNavbar();
   addListenerToNavigation();
   // contentFrame.src=`./${pages[3].root}/${pages[3].children[1].file}`;
-  contentFrame.src=`./${pages[3].root}/${pages[3].children[0].file}`;
+  // contentFrame.src=`./${pages[3].root}/${pages[3].children[0].file}`;
+  contentFrame.src=`./${pages[4].root}/${pages[4].children[0].file}`;
 }
 function updateURL(section,page){
   let url=`./${pages[section].root}/${pages[section].children[page].file}`;

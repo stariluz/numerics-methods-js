@@ -1,0 +1,65 @@
+.equation-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0px 1rem;
+  gap: 10px;
+}
+
+.input-section {
+  background-color: rgb(105, 138, 136);
+  width: 100%;
+  padding: 1rem;
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  padding-bottom: 4rem;
+}
+.input-group {
+  font-weight: 700;
+  max-width: 16rem;
+}
+.equation-container .input-group {
+  max-width: 8rem;
+}
+.operator-sign {
+  color: white;
+  font-weight: 700;
+}
+.equation-container>div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.equation-container .input-group-text{
+  padding: 0.2rem;
+  font-weight: 700;
+}
+
+button {
+  box-shadow: inset -1px -2px 2px 0px rgba(255, 255, 255, 0.2),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 0px 2px 2px rgba(91, 91, 91, 0.2);
+}
+.btn-calculate{
+  position: absolute;
+  bottom: 0;
+  border-radius: 1rem 1rem 0rem 0rem;
+  box-shadow: none;
+  box-shadow: inset -1px -2px 2px 0px rgba(255, 255, 255, 0.2),
+    0px -1px 0px 1px rgba(35, 35, 35, 0.3),
+    0px -2px 2px 2px rgba(91, 91, 91, 0.2);
+}
+.configuration-container{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
