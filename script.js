@@ -91,15 +91,15 @@ function updateURL(section,page){
   let url=`./${pages[section].root}/${pages[section].children[page].file}`;
   let pageTitle=`${pages[section].children[page].name} | ${pages[section].name}`;
   contentFrame.src=url;
-  history.replaceState({
+  /* history.replaceState({
     id: url,
-  }, pageTitle, url);
+  }, pageTitle, url); */
 }
-window.addEventListener('popstate', (event)=>{
+/* window.addEventListener('popstate', (event)=>{
   if (history.state && history.state.id === 'homepage') {
     contentFrame.src=url;
   }
-}, false);
+}, false); */
 function initNavbar(){
   return new Promise((resolve,reject)=>{
     for (let i in pages) {
