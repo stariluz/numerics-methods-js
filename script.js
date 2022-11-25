@@ -51,11 +51,11 @@ let pages=[
     "children": [
       {
         "file": "derivation.html",
-        "name": "Derivation"
+        "name": "Derivation: Central finite difference"
       },
       {
         "file": "integration.html",
-        "name": "Integration"
+        "name": "Integration: Simpson 1/3 and 3/8"
       }
     ]
   },
@@ -150,7 +150,7 @@ function onNavigate(event){
   updateURL(index[0],index[1]);
 }
 
-let counter=true;
+/* let counter=true;
 let navbarContainer=document.getElementById('navbar-container');
 let buttonDisplayNav=document.getElementById('button-display-nav');
 buttonDisplayNav.addEventListener("click", ()=>{
@@ -162,4 +162,4 @@ buttonDisplayNav.addEventListener("click", ()=>{
   }else{
     buttonDisplayNav.firstChild.innerText=`Open Navigation`;
   }
-});
+}); */
